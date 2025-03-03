@@ -49,7 +49,7 @@ nav li {
 body {
   margin: 0;
   padding: 0;
-  background-image: url('/images/site/checkerboard.jpg');
+  background-image: url('/images/site/small_check.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
