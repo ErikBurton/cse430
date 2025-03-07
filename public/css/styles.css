@@ -42,12 +42,7 @@ body {
   text-decoration: none;
 }
 
-.Footer {
-  padding: 10px;
-  color: white;
-  text-align: center;
-  background-color: #222;
-}
+
 
 .Navigation ul {
   background-color: black;
@@ -73,30 +68,29 @@ body {
 
 /* Feature Section */
 .Feature {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  text-align: left;
+  position: relative;
+  text-align: center;
+}
+
+.Feature-Image {
+  position: relative;
 }
 
 .Feature-Image img {
-  max-width: 100%;
-  height: auto;
-  align-items: center
+ display: block;
+ margin: 0 auto;
 }
 
 .Feature-Details {
-  position: relative;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.5);
   padding: 10px;
   color: blue;
-  line-height: .75;
   width: fit-content;
-  margin-left: 0;
-}
+ }
 
 button {
   background-color: lightblue;
@@ -111,21 +105,33 @@ button:hover {
   color: white;
 }
 
+.Content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
 /* Upgrades Section */
 .Upgrades {
-  text-align: left;
+ flex: 1;
   padding: 20px;
+  text-align: left;
+}
+
+.Reviews {
+  flex: 1;
+  padding: 20px;
+  text-align: left;
 }
 
 .Grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, auto));
+  column-gap: 0px;
 }
 
 .Card {
-  width: 200px;
+  width: 100px;
   text-align: center;
   padding: 10px;
   background: white;
@@ -139,6 +145,12 @@ button:hover {
   border-radius: 8px;
 }
 
+.Card a {
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+}
+
 /* Reviews Section */
 .Reviews {
   padding: 20px;
@@ -149,6 +161,15 @@ button:hover {
   list-style: none;
   padding: 0;
 }
+
+.Footer {
+  padding: 10px;
+  color: white;
+  text-align: center;
+  background-color: #222;
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
