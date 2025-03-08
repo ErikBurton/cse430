@@ -127,6 +127,7 @@ button:hover {
   flex: 1;
   padding: 20px;
   text-align: left;
+  float: right;
 }
 
 .Grid {
