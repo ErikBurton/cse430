@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%- title %> | CSE Motors</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <head>
+  <%- include('./partials/head') %>
 </head>
-
-<body>
+ <body>
   <div class="Container">
     <header class="Header">
       <%- include('./partials/header') %>
     </header>
     <nav class="Navigation">
       <%- include('./partials/navigation') %>
-    </nav>
-  
+    </nav>  
     <section class="Hero">
       <h1>Welcome to CSE Motors!</h1>
     </section>
-
     <section class="Feature">
       <div class="Feature-Image">
         <img src="/images/vehicles/delorean.jpg" alt="Image of Delorean Car">
