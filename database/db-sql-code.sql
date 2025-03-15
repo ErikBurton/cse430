@@ -2,7 +2,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO cse340;
+    OWNER TO mydatabase;
 
 -- Table structure for table 'classification'
 CREATE TABLE public.classification (
@@ -56,7 +56,6 @@ VALUES ('Custom'),
 	('Sedan');
 
 -- Data for table `inventory`
-
 INSERT INTO public.inventory (
     inv_make,
     inv_model,
@@ -237,7 +236,7 @@ VALUES   (
     5
   );
 
-  -- #4
+-- #4
 UPDATE inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
 WHERE inv_make = 'GM'
