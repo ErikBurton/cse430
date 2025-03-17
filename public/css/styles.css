@@ -13,7 +13,6 @@ h1, h2, h3 {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Layout Containers */
 .Container {
   width: 80%;
   margin: 0 auto;
@@ -27,7 +26,7 @@ h1, h2, h3 {
   flex-direction: column
 }
 
-#top-header {
+.top-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -62,14 +61,12 @@ h1, h2, h3 {
   font-size: 18px;
 }
 
-/* Hero Section */
 .Hero {
   text-align: left;
   padding: 5px 0;
   margin-top: 0;
 }
 
-/* Feature Section */
 .Feature {
   position: relative;
   text-align: center;
@@ -116,23 +113,14 @@ button:hover {
 
 .Content {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-/* Upgrades Section */
-.Upgrades {
+.Upgrades, .Reviews {
  flex: 1;
   padding: 20px;
   text-align: left;
-}
-
-.Reviews {
-  flex: 1;
-  padding: 20px;
-  text-align: left;
-  float: right;
 }
 
 .Grid {
@@ -151,6 +139,8 @@ button:hover {
 }
 
 .Card img {
+  display: block;
+  margin: 0 auto;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
@@ -162,7 +152,6 @@ button:hover {
   text-align: center;
 }
 
-/* Reviews Section */
 .Reviews {
   padding: 20px;
   text-align: left;
@@ -186,14 +175,28 @@ button:hover {
   body {
     background-image: none;
   }
+
+  .Navigation ul {
+    padding: 10px 0;
+  }
+
+  .Navigation li {
+    margin: 0 8px;
+    font-size: 12px;
+  }
   .Container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
   .Feature-Details {
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 10px;
+    top: 10px;
+    transform: none;
+    font-size: 10px;
+    padding: 8px;
+    text-align: left;
+
   }
   .Content {
     flex-direction: column;
