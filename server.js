@@ -10,6 +10,7 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+const utilities = require('./utilities');
 
 /* ***********************
  * View Engine and Templates
@@ -28,6 +29,25 @@ app.get("/", function (req, res) {
   res.render("index", {title: "Home",
  })
 })
+
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({status: 404, message: "Sorry, we appear to have lost that page."})
+})
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+// server.js (or your main file)
+app.use((err, req, res, next) => {
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message
+  });
+});
+
 
 /* ***********************
  * Local Server Information
