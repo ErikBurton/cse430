@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %></title>
+</head>
+<body>
+  <div class="Container">
+    <header class="Header">
+      <%- include('../partials/header') %>
+    </header>
+    <nav class="Navigation">
+      <%- include('../partials/navigation') %>
+    </nav>
+    
+    <main>
+      <h1><%= title %></h1>
+      <div class="vehicle-detail-container">
+        <div class="vehicle-image">
+          <img src="<%= vehicle.inv_image %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+        </div>
+        <div class="vehicle-info">
+          <p><strong>Year:</strong> <%= vehicle.inv_year %></p>
+          <p><strong>Price:</strong> 
+            <%= Number(vehicle.inv_price).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) %>
+          </p>
+          <p><strong>Mileage:</strong> 
+            <%= Number(vehicle.inv_mileage).toLocaleString('en-US') %> miles
+          </p>
+          <p><strong>Description:</strong> <%= vehicle.inv_description %></p>
+        </div>
+      </div>
+      
+      <!-- Or use the utility-built HTML: -->
+      <!-- <div class="vehicle-detail">
+        <%- vehicleHTML %>
+      </div> -->
+    </main>
+
+    <footer class="Footer">
+      <%- include('../partials/footer') %>
+    </footer>
+  </div>
+</body>
+</html>
