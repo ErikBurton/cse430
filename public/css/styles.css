@@ -170,6 +170,71 @@ button:hover {
   float: none;
 }
 
+  /* body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  } */
+  .login-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .flash-message {
+    padding: 10px;
+    margin-bottom: 15px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 3px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  input[type="email"],
+  input[type="password"] {
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .signup-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .signup-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+
 /* Responsive Design */
 @media (max-width: 769px) {
   body {
@@ -225,3 +290,4 @@ button:hover {
     width: 100%;
   }
 }
+
