@@ -2,6 +2,7 @@
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
+
 /* ***********************
  * Require Statements
  *************************/
@@ -11,8 +12,8 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const utilities = require('./utilities');
-const baseController = require("./controllers/baseController")
-const session = require("express-session")
+const baseController = require("./controllers/baseController");
+const session = require("express-session");
 const pool = require('./database/')
 
 /* ***********************
@@ -41,16 +42,16 @@ app.use(function(req, res, next){
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.set("layout", "../layouts/layout") // not at views root
+app.set("layout", "layouts/layout") // not at views root
 
 /* ***********************
  * Routes
  *************************/
 app.use(require("./routes/static"))
 // Index route
-app.get("/", utilities.handleErrors(baseController.buildHome))
-app.use("/inv", require("/..routes/inventoryRoute"))
-app.use("/account"), require("/..routes/accountRoute")
+app.get("/", baseController.buildHome);
+// app.use("/inv", require("/..routes/inventoryRoute"))
+// app.use("/account"), require("/..routes/accountRoute")
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
@@ -69,7 +70,6 @@ app.use((err, req, res, next) => {
     message: err.message
   });
 });
-
 
 /* ***********************
  * Local Server Information
