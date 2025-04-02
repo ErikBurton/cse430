@@ -61,6 +61,15 @@ h1, h2, h3 {
   font-size: 18px;
 }
 
+.Navigation li a {
+  color: white;
+  text-decoration: none;
+}
+
+.Navigation li a:hover {
+  color: #ff0000;
+}
+
 .Hero {
   text-align: left;
   padding: 5px 0;
@@ -162,6 +171,24 @@ button:hover {
   padding-left: 20px;
 }
 
+/* Vehicle Detail Views */
+.vehicle-detail-container {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 20px;
+  align-items: start;
+}
+
+.vehicle-image {
+  flex: 1;
+  max-width: 40%;  /* adjust as needed */
+}
+
+.vehicle-info {
+  flex: 1;
+  max-width: 60%;  /* adjust as needed */
+}
+
 .Footer {
   padding: 10px;
   color: #ffffff;
@@ -170,12 +197,12 @@ button:hover {
   float: none;
 }
 
-  /* body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  } */
+.error {
+  position: relative;
+  left: 10px;
+  margin: 0;
+}
+
   .login-container {
     width: 300px;
     margin: 50px auto;
@@ -185,6 +212,7 @@ button:hover {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
+
   h2 {
     text-align: center;
     margin-bottom: 20px;
