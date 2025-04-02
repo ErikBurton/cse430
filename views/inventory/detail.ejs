@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('../partials/head') %>
-  <title><%= title %></title>
-</head>
-<body>
-  <div class="Container">
-    <header class="Header">
-      <%- include('../partials/header') %>
-    </header>
-    <nav class="Navigation">
-      <%- include('../partials/navigation') %>
-    </nav>
-    
     <main>
       <h1><%= title %></h1>
       <div class="vehicle-detail-container">
@@ -30,16 +15,6 @@
           <p><strong>Description:</strong> <%= vehicle.inv_description %></p>
         </div>
       </div>
-      
-      <!-- Or use the utility-built HTML: -->
-      <!-- <div class="vehicle-detail">
-        <%- vehicleHTML %>
-      </div> -->
     </main>
-
-    <footer class="Footer">
-      <%- include('../partials/footer') %>
-    </footer>
-  </div>
-</body>
-</html>
+      
+     
