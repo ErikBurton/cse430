@@ -171,6 +171,44 @@ button:hover {
   padding-left: 20px;
 }
 
+/* Vehicle Inventory Display */
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#inv-display li {
+  background-color: lightgray;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+}
+
+#inv-display h3 {
+  margin-top: 0;
+}
+
+#inv-display img {
+  width: 250px;              
+  height: 150px;            
+  object-fit: contain;        
+  object-position: center;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+
 /* Vehicle Detail Views */
 .vehicle-detail-container {
   display: grid;
