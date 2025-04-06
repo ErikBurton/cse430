@@ -59,6 +59,7 @@ app.use("/inv", inventoryRoute)
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
 
+
 // Route to simulate a 500 error
 app.get('/error500', async (req, res, next) => {
   try {

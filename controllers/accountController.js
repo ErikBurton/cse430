@@ -14,5 +14,19 @@ async function buildLogin(req, res, next) {
     next(err);
   }
 }
+
+async function buildSignup(req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    res.render("account/signup", {
+      title: "Signup",
+      nav,
+      errors: null,
+    });
+  } catch (err) {
+    console.error("Error in buildSignup:", err);
+    next(err); // Pass the error to the error handler
+  }
+}
   
-  module.exports = { buildLogin }
+  module.exports = { buildLogin, buildSignup }

@@ -374,6 +374,82 @@ button:hover {
   text-decoration: underline;
 }
 
+/* Styling for Sign Up Page */
+.signup-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: lightskyblue;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Styling for flash messages */
+.flash-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.flash-message p {
+  margin: 0;
+}
+
+/* Form element styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between form elements */
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #4CAF50; /* Green focus color */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Button styling */
+button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
 
 /* Responsive Design */
 @media (max-width: 769px) {
@@ -433,6 +509,21 @@ button:hover {
 
 @media (max-width: 600px) {
   .login-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input, button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .signup-container {
     width: 90%;
     padding: 20px;
   }

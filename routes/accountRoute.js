@@ -6,4 +6,6 @@ const utilities = require('../utilities')
 
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
+router.get("/signup", utilities.handleErrors(accountController.buildSignup));
+
 module.exports = router;
