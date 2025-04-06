@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://byui-cse.github.io/cse340-ww-content/views/account-process-register.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Process Registration | Web Backend Development</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="./Process Registration _ Web Backend Development_files/340course-min.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="./Process Registration _ Web Backend Development_files/prism-coy-dev.min.css" media="screen">
+  <script defer="" src="./Process Registration _ Web Backend Development_files/prism-coy-dev.min.js"></script>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1229.0" data-gr-ext-installed="" cz-shortcut-listen="true" data-new-gr-c-s-loaded="14.1229.0">
+  <div id="wrapper">
+    <header>
+      <img src="./Process Registration _ Web Backend Development_files/small_banner.jpg" alt="Course Banner">
+    </header>
+    <main>
+      <h1>Account: Process Registration</h1>
+      <h2>Introduction</h2>
+      <p>
+        With the registration form built, it is time to implement it to add the account data to the database. This is only the first step. You'll revisit this process again in order to add checks and validation of the data in the next unit. But, one step at a time.
+      </p>
+
+      <h2>Video Overview</h2>
+      <p>The video provides a general overview of the activity, but does not contain the detail needed to complete each process. Watch the video to obtain a general idea, but follow the written steps to complete the activity. This is the <a target="_blank" href="https://byui-cse.github.io/cse340-ww-content/transcripts/account-process-registration.txt">Transcript</a> of the video.</p>
+<iframe width="560" height="315" src="./Process Registration _ Web Backend Development_files/7DHezZ7AO-Y.html" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+      <h2>The Registration View</h2>
+      <p>
+        The registration form has two attributes that must be reviewed, added or altered, to make the form send the proper information to the server. Let's take a look at these attributes now.
+      </p>
+      <ol>
+        <li>
+          Find and open the <span class="fn">registration</span> view in the <span class="fn">views &gt; account</span> folder.
+        </li>
+        <li>
+          Locate the opening "&lt;form&gt;" tag. Alter the tag, if needed, to look like the code below:
+          <pre class="line-numbers language-markup" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/account/register<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+        </li>
+        
+        
+        <li>
+          <h3>An Explanation</h3>
+          <ul>
+            <li><strong>action="/account/register" -</strong> the path to be processed by the route, to understand what is being requested.</li>
+            <li><strong>method="post" -</strong> the manner in which the data is being sent to the server.</li>
+          </ul>
+          [<mark>Note: if you are sharp-eyed, you will have noticed that the path is the same as the one used to request delivery of the view. However, the "post" method is different, and that is what will be used to differentiate between the two. If this is too subtle a difference, then feel free to change "register" to something different, but make sure it still carries the meaning of what is to be done - register a new account.</mark>]
+        </li>
+        <li>
+          Ensure no warnings or errors are displayed by
+          <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>Save the file.</li>
+      </ol>
+
+      <h2>Enable the Registration Route</h2>
+      <p>
+        You will recall that the <span class="fn">server.js</span> file already has the initial element of the "account" route in place. After all, it should already be using the correct route file to deliver the <span class="fn">login</span> and <span class="fn">registration</span> views. So, we can bypass it and move directly to the <span class="fn">accountRoute</span>.js file to add the needed functionality.
+      </p>
+      <ol>
+        <li>Open the <span class="fn">accountRoute.js</span> file.</li>
+        <li>
+          Add a new comment to the route and the route, as shown below, to the file, below the two existing routes.
+          <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript">router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/register'</span><span class="token punctuation">,</span> utilities<span class="token punctuation">.</span><span class="token function">handleErrors</span><span class="token punctuation">(</span>accountController<span class="token punctuation">.</span>registerAccount<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+        </li>
+        <li>By now, this code should begin to be familiar. The key difference is the use of the "post" method to look within the "post" object, instead of the "get" object. Be sure to use the same value in the route as you used in the "action" attribute of the registration form.</li>
+        <li>Ensure no warnings or errors are displayed by
+          <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>Save the file.</li>
+      </ol>
+
+      <h2>Account Model</h2>
+      <p>Before turning your attention to the account controller, we need a function that will allow the data to be written to the "account" table of the database. We'll build it first, then implement it in the controller.</p>
+      <ol>
+        <li>Create a new <span class="fn">account-model.js</span> file in the <span class="fn">models</span> folder.</li>
+        <li>At the top of the file, require the <span class="fn">database &gt; index</span> file and store it to a local "pool" variable. Refer to the <span class="fn">inventory-model</span> file, for what this code should look like.</li>
+        <li>Create a few empty lines beneath the "require" statement.</li>
+        <li>Create the new function, using the code shown below:
+        </li>
+      </ol>
+      <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript"><span class="token comment">/* *****************************
+*   Register new account
+* *************************** */</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">registerAccount</span><span class="token punctuation">(</span>account_firstname<span class="token punctuation">,</span> account_lastname<span class="token punctuation">,</span> account_email<span class="token punctuation">,</span> account_password<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> sql <span class="token operator">=</span> <span class="token string">"INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> pool<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span> <span class="token punctuation">[</span>account_firstname<span class="token punctuation">,</span> account_lastname<span class="token punctuation">,</span> account_email<span class="token punctuation">,</span> account_password<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> error<span class="token punctuation">.</span>message
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <ol start="5">
+        <li>
+          <h3>An Explanation</h3>
+          <ul>
+            <li><strong>Lines 1-3 -</strong> a comment introducing the function.</li>
+            <li><strong>Lines 4-5 -</strong> opens the function, declares it to use "async", provides the function name, and lists the four parameters the function expects to receive.</li>
+            <li><strong>Line 6 -</strong> opens a "try", part of a "try - catch" error handling block.</li>
+            <li><strong>Lines 7-9 -</strong> declares a "sql" variable and the SQL query to write the data to the database. <span class="notice">Note: placeholders are used - <code>$#</code> - as part of the "parameterized statement" syntax. Additionally, 'Client' is included in the SQL statement to indicate the "type" of account being registered. The "RETURNING *" clause indicates to the PostgrSQL server to return values based on the record that was inserted. It is a way to confirm that the insertion worked.</span></li>
+            <!-- See https://www.postgresql.org/docs/current/sql-insert.html for Returning clause operation -->
+            <li><strong>Lines 10-11 -</strong> returns the result of the query execution. Note the use of "await" to wait until the promise has been replaced with data, from the query executing the SQL statement and replacing the placeholders with the actual data in the variables.</li>
+            <li><strong>Line 12 -</strong> closes the "try" block and opens the "catch" block. Accepts an "error" variable to store any error that is thrown should the "try" block fail.</li>
+            <li><strong>Line 13 -</strong> sends back any error message that is found in the error object.</li>
+            <li><strong>Line 14 -</strong> ends the "catch" block.</li>
+            <li><strong>Line 15 -</strong> ends the function, opened on line 4.</li>
+          </ul>
+        </li>
+        <li>Create an export statement at the bottom of the file to make the function available for use elsewhere.</li>
+        <li>Ensure no warnings or errors are displayed by
+          <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>Save the file.</li>
+      </ol>
+
+      <h2>Account Controller</h2>
+      <p>
+        With the route and model function in place, the account controller needs to be built to process the incoming data, cause the client to be stored into the database and return a view to the client's browser. Let's make some magic.
+      </p>
+      <ol>
+        <li>
+          Find and open the <span class="fn">accountController</span> file in the <span class="fn">controllers</span> folder.
+        </li>
+        <li>Add a "require" statement at the top of the file to bring the account model into scope.</li>
+        <li>
+          Add the following function below the existing functions, leaving at least one empty line between the old and new functions.
+          <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript"><span class="token comment">/* ****************************************
+*  Process Registration
+* *************************************** */</span>
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">registerAccount</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> nav <span class="token operator">=</span> <span class="token keyword">await</span> utilities<span class="token punctuation">.</span><span class="token function">getNav</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> account_firstname<span class="token punctuation">,</span> account_lastname<span class="token punctuation">,</span> account_email<span class="token punctuation">,</span> account_password <span class="token punctuation">}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body
+
+  <span class="token keyword">const</span> regResult <span class="token operator">=</span> <span class="token keyword">await</span> accountModel<span class="token punctuation">.</span><span class="token function">registerAccount</span><span class="token punctuation">(</span>
+    account_firstname<span class="token punctuation">,</span>
+    account_lastname<span class="token punctuation">,</span>
+    account_email<span class="token punctuation">,</span>
+    account_password
+  <span class="token punctuation">)</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>regResult<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    req<span class="token punctuation">.</span><span class="token function">flash</span><span class="token punctuation">(</span>
+      <span class="token string">"notice"</span><span class="token punctuation">,</span>
+      <span class="token template-string"><span class="token string">`Congratulations, you\'re registered </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>account_firstname<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">. Please log in.`</span></span>
+    <span class="token punctuation">)</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">201</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">"account/login"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      title<span class="token punctuation">:</span> <span class="token string">"Login"</span><span class="token punctuation">,</span>
+      nav<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    req<span class="token punctuation">.</span><span class="token function">flash</span><span class="token punctuation">(</span><span class="token string">"notice"</span><span class="token punctuation">,</span> <span class="token string">"Sorry, the registration failed."</span><span class="token punctuation">)</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">501</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">"account/register"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      title<span class="token punctuation">:</span> <span class="token string">"Registration"</span><span class="token punctuation">,</span>
+      nav<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </li>
+        <li>
+          <h3>An Explanation</h3>
+          <ul>
+            <li>
+              <strong>Lines 1-3 -</strong> a multi-line comment introducing the function.
+            </li>
+            <li>
+              <strong>Line 4 -</strong> begins the function, declaring it as asynchronous, and passing in request, response as
+              parameters.
+            </li>
+            <li>
+              <strong>Line 5 -</strong> retrieves and stores the navigation bar string for use in the view.
+            </li>
+            <li>
+              <strong>Lines 6-7 -</strong> collects and stores the values from the HTML form that are being sent from the browser in the body of the request object. We have an additional step to take to make this work, but we'll do it once this function is finished. 
+            </li>
+            <li>
+              <strong>Line 8 -</strong> left intentionally blank.
+            </li>
+            <li>
+              <strong>Line 9 -</strong> calls the function, from the model, and uses the "await" keyword to indicate that a result should be returned and wait until it arrives. The result is stored in a local variable.
+            </li>
+            <li><strong>Lines 10 - 13 -</strong> the parameters being passed into the function.</li>
+            <li><strong>Line 14 -</strong> ends the model function call.</li>
+            <li>
+              <strong>Line 15 -</strong> left intentionally blank.
+            </li>
+            <li><strong>Line 16 -</strong> opens an "if" structure to determine if a result was received.</li>
+            <li><strong>Lines 17-21 -</strong> sets a flash message to be displayed. Notice the use of ticks, not single quotes, and the JavaScript object literal to display the client's name in the message.</li>
+            <li><strong>Line 22 -</strong>calls the render function to return the <span class="fn">login</span> view, along with an <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" title="link to the 201 status code page" target="_blank">HTTP 201 status code</a> for a successful insertion of data.</li>
+            <li><strong>Lines 23-24 -</strong> data within the data object being sent to the view. <span class="notice">Note that the use of the <span class="fn">login</span> view. This gives the client the opportunity to practice using the username and password that they just used in the registration process.</span></li>
+            <li><strong>Line 25 -</strong> closes the data object and render method.</li>
+            <li><strong>Line 26 -</strong> closes the "if" block and opens the "else" block.</li>
+            <li><strong>Line 27 -</strong> sets the failure message if the insertion failed.</li>
+            <li><strong>Line 28 -</strong> calls the render function, sends the route to trigger a return to the registration view and sends a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501" title="link to the 501 status code page" target="_blank">HTTP 501 status code</a>. In this instance, the 501 status should be interpreted as "not successful".</li>
+            <li><strong>Lines 29-30 -</strong>The elements of the data object being sent to the view.</li>
+            <li><strong>Line 31 -</strong> closes the data object and render method.</li>
+            <li><strong>Line 32 -</strong> closes the "else" block.</li>
+            <li><strong>Line 33 -</strong> closes the function begun on line 4.</li>
+          </ul>
+        </li>
+        <li>Be sure to add the function name to the exports code at the bottom of the controller.</li>
+        <li>
+          Ensure no warnings or errors are displayed by
+          <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>Save the file.</li>
+      </ol>
+
+      
+
+      <h2>Data Trail</h2>
+      <p>In the function that was just added, the data collection list  and parameter list used variable names that are the same as the column names that exist in the "account" table of the database.</p>
+
+      <p>You may ask, "Why are you mentioning this again?" The answer is, "Repetition! By re-emphasizing the use of database column names as input name values, variable, and parameter names, it make it very clear what the data value should be as it moves through the application." It creates a clear trail, from beginning (in the form) to end (in the database table). <span class="notice">I strongly encourage you to follow this approach - use the database column names for form input names, variables and parameters. This will help you keep the data clear as it moves through the processes of the application.</span></p>
+
+      <h2>Server.js File</h2>
+      <p>
+        As mentioned in the explanation, in order to collect the values from the incoming request body, we need to make the application aware of that functionality. We'll add that to the <span class="fn">server.js</span> file so that it is available throughout the application.
+      </p>
+      <ol>
+        <li>
+          Find and open the <span class="fn">server.js</span> file in the project folder.
+        </li>
+        <li>
+          Open a terminal pane, within <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>In the terminal, install a new package - <a href="https://expressjs.com/en/resources/middleware/body-parser.html" target="_blank">body-parser</a>:
+          <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript">pnpm add body<span class="token operator">-</span>parser
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+        </li>
+        <li>When the package has finished installing, close the terminal.</li>
+        <li>
+          In the <span class="fn">server.js</span> file, locate the "Require Statements" section and add the body parser to it:
+          <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript"><span class="token keyword">const</span> bodyParser <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"body-parser"</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+        </li>
+        <li>
+          Scroll down to the middleware section. Type these two lines to the bottom of this section. Both of which will make the body-parser available to the application:
+          <pre class="line-numbers language-javascript" title="Copy - Paste does NOT help you learn. Type it."><code class=" language-javascript">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">urlencoded</span><span class="token punctuation">(</span><span class="token punctuation">{</span> extended<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// for parsing application/x-www-form-urlencoded</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+        </li>
+        <li>
+          <h3>An Explanation</h3>
+          <ul>
+            <li><strong>Line 1 -</strong> tells the express application to use the body parser to work with JSON data (to be used later).</li>
+            <li><strong>Line 2 -</strong> tells the express application to read and work with data sent via a URL as well as from a form, stored in the request object's body. The "extended: true" object is a configuration that allows rich objects and arrays to be parsed. The final part is an inline comment pertaining to the entire line.</li>
+          </ul>
+        </li>
+        <li>
+          Ensure no warnings or errors are displayed by
+          <span title="Visual Studio Code">VSC</span>.
+        </li>
+        <li>Save the file.</li>
+      </ol>
+
+      <h2>Test Time</h2>
+      <p>
+        With the code in place, let's see if we can successfully register a new client and save their data to the database.
+      </p>
+      <ol>
+        <li>
+          Ensure that all the file names are correct, particularly those
+          that are being required by other files.
+        </li>
+        <li>
+          Open a <span title="Visual Studio Code">VSC</span> terminal and
+          start the development server - "<code class=" language-javascript">pnpm run dev</code>".
+        </li>
+        <li>
+          Open a browser to "<code class=" language-markup">localhost:5500</code>".
+        </li>
+        <li>Click the "My Account" link in the header.</li>
+        <li>
+          The view should be delivered.
+        </li>
+        <li>Find and click the link to deliver the <span class="fn">registration</span> view.</li>
+        <li>Fill in the form with your own or fake information. Submit the form.</li>
+        <li>
+          If everything worked, the success message should appear in the "login" view.
+        </li>
+        <li>To check that a false positive result did not occur, open the "pgAdmin" tool and connect to the remote database server.</li>
+        <li>Once connected, query the "account" table. The data from the registration should appear as the last record in the table.</li>
+        <li>If everything worked, do a fist-bump with someone sitting nearby. If it didn't work, consult the terminal for error messages, talk with your learning team, the TA, or the professor. But it needs to be working prior to moving forward.</li>
+      </ol>
+
+      <h2>Conclusion</h2>
+      <p>
+        Successfully adding a client to the database is a great first step, but we left a lot of vulnerabilities in the process. In the next lesson, the goal is to take care of those vulnerabilities. But, don't move forward until you can write the data and be directed to the correct view afterwards.
+      </p>
+    </main>
+    <footer>
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width: 0" src="./Process Registration _ Web Backend Development_files/88x31.png"></a>
+      All materials (except as noted) are by Blaine Robertson and licensed
+      under a
+      <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 License</a>.
+    </footer>
+  </div>
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

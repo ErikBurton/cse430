@@ -374,8 +374,8 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Styling for Sign Up Page */
-.signup-container {
+/* Styling for Registration Page */
+.register-container {
   width: 100%;
   max-width: 400px;
   margin: 50px auto;
@@ -523,7 +523,7 @@ button:hover {
 }
 
 @media (max-width: 600px) {
-  .signup-container {
+  .register-container {
     width: 90%;
     padding: 20px;
   }

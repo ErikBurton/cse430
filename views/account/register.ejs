@@ -1,5 +1,5 @@
-<div class="signup-container">
-    <h2>Sign Up</h2>
+<div class="register-container">
+    <h2>Register</h2>
     
     <!-- Display flash message if available -->
     <% if (typeof flash !== 'undefined' && flash.length > 0) { %>
@@ -10,7 +10,7 @@
       </div>
     <% } %>
     
-    <form action="/signup" method="POST">
+    <form action="/account/register" method="post">
         <label for="firstname">First Name:</label>
         <input type="text" id="account_firstname" name="firstname" required placeholder="Enter your first name">
         
@@ -25,6 +25,6 @@
           pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$"
           title="Password must be at least 12 characters, contain at least one uppercase letter, one number, and one special character.">
       
-      <button type="submit">Sign Up</button>
+      <button type="submit">Register</button>
     </form>
 </div>
