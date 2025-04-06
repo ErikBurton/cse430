@@ -12,6 +12,7 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const static = require("./routes/static")
 const utilities = require('./utilities');
 const baseController = require("./controllers/baseController");
@@ -21,6 +22,7 @@ const pool = require('./database/')
 /* ***********************
  * Middleware
  * ************************/
+// Express-session
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -38,7 +40,7 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
-
+ 
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -54,6 +56,9 @@ app.use(require("./routes/static"))
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory Routes
 app.use("/inv", inventoryRoute)
+// Account routes
+app.use("/account", require("./routes/accountRoute"))
+
 // Route to simulate a 500 error
 app.get('/error500', async (req, res, next) => {
   try {
@@ -65,7 +70,6 @@ app.get('/error500', async (req, res, next) => {
     next(e); 
   }
 });
-
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: "Sorry, we appear to have lost that page."})
