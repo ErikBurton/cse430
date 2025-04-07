@@ -12,7 +12,6 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const inventoryRoute = require("./routes/inventoryRoute")
-const accountRoute = require("./routes/accountRoute")
 const static = require("./routes/static")
 const utilities = require('./utilities');
 const baseController = require("./controllers/baseController");
@@ -61,7 +60,13 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory Routes
 app.use("/inv", inventoryRoute)
 // Account routes
-app.use("/account", require("./routes/accountRoute"))
+app.use("/account", require("./routes/accountRoute"));
+
+app._router.stack.forEach(function(middleware) {
+  if (middleware.route) {
+    console.log(middleware.route.path); // Logs the route paths
+  }
+});
 
 
 // Route to simulate a 500 error
