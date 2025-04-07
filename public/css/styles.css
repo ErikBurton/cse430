@@ -450,6 +450,18 @@ button:hover {
   background-color: #45a049;
 }
 
+/* Input field styling */
+input:required:invalid, input:focus:invalid {
+  background-image: url(/images/invalid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+ }
+  input:required:valid {
+  background-image: url(/images/valid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  }
+
 
 /* Responsive Design */
 @media (max-width: 769px) {

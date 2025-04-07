@@ -9,6 +9,14 @@
         <% }); %>
       </div>
     <% } %>
+
+    <% if (errors) { %>
+      <ul class="notice">
+     <% errors.array().forEach(error => { %>
+       <li><%= error.msg %></li>
+    <%  }) %>
+     </ul>
+    <% } %>
     
     <form action="/account/register" method="post">
         <label for="firstname">First Name:</label>
@@ -24,6 +32,7 @@
         <input type="password" id="password" name="account_password" required placeholder="Create a password"
           pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$"
           title="Password must be at least 12 characters, contain at least one uppercase letter, one number, and one special character.">
+        
       
       <button type="submit">Register</button>
     </form>
