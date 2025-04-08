@@ -1,0 +1,27 @@
+<div class="management-container">
+    <h1>Vehicle Management</h1>
+    
+    <!-- Display flash message if available -->
+    <% if (typeof flash !== 'undefined' && flash.length > 0) { %>
+      <div class="flash-message">
+        <% flash.forEach(function(message){ %>
+          <p><%= message %></p>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <% if (errors) { %>
+      <ul class="notice">
+     <% errors.array().forEach(error => { %>
+       <li><%= error.msg %></li>
+    <%  }) %>
+     </ul>
+    <% } %>
+    
+    <form action="/account/register" method="post">
+        <label for="firstname">First Name:</label>
+    <div class="managment-links">
+        <p><a href="/inv/add-classification">Add New Classification</a></p>
+        <p><a href="/inv/add-inventory">Add New Inventory</a></p>
+    </div>
+</div>

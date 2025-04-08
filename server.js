@@ -18,6 +18,7 @@ const baseController = require("./controllers/baseController");
 const session = require("express-session");
 const pool = require('./database/')
 const bodyParser = require("body-parser")
+const { buildManagementView } = require("./controllers/invController")
 
 /* ***********************
  * Middleware
@@ -58,7 +59,7 @@ app.use(require("./routes/static"))
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory Routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", inventoryRoute, buildManagementView)
 // Account routes
 app.use("/account", require("./routes/accountRoute"));
 
