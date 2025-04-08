@@ -1,0 +1,40 @@
+<div class="register-container">
+    <h1>Add New Classification</h1>
+    
+    <!-- Display flash messages if available -->
+    <% if (flash && flash.length > 0) { %>
+      <div class="flash-message">
+        <% flash.forEach(message => { %>
+          <p><%= message %></p>
+        <% }); %>
+      </div>
+    <% } %>
+  
+    <!-- Display server-side validation errors if available -->
+    <% if (errors) { %>
+      <ul class="notice">
+        <% errors.array().forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    <% } %>
+  
+    <!-- The Form for Adding a New Classification -->
+    <form action="/inv/add-classification" method="POST" id="add-classification-form">
+      <label for="classificationName">
+        Classification Name (no spaces or special characters):
+      </label>
+      <!-- Client-side validation via HTML5 pattern -->
+      <input 
+        type="text" 
+        name="classificationName" 
+        id="classificationName" 
+        required 
+        pattern="^[A-Za-z0-9]+$"
+        title="Only letters and numbers, no spaces or special characters."
+        placeholder="Enter Classification Name">
+      
+      <button type="submit">Add Classification</button>
+    </form>
+  </div>
+  
