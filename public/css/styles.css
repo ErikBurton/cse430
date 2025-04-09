@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -13,6 +14,15 @@ h1, h2, h3 {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Common Headings */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Containers & Layout */
 .Container {
   width: 80%;
   margin: 0 auto;
@@ -23,7 +33,7 @@ h1, h2, h3 {
   border: 4px solid #0055A5;
   min-height: 100vh;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .top-header {
@@ -43,14 +53,15 @@ h1, h2, h3 {
 
 #tools {
   text-align: right;
-  float:right;
+  float: right;
 }
 
+/* Navigation */
 .Navigation ul {
   background-color: black;
   list-style: none;
   padding: 15px 0;
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
   text-align: center;
   border-radius: 5px;
 }
@@ -71,6 +82,7 @@ h1, h2, h3 {
   color: #ff0000;
 }
 
+/* Hero & Feature Sections */
 .Hero {
   text-align: left;
   padding: 5px 0;
@@ -91,10 +103,10 @@ h1, h2, h3 {
 }
 
 .Feature-Image img {
- display: block;
- width: 100%;
- height: auto;
- max-width: 600px;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 600px;
 }
 
 .Feature-Details {
@@ -106,21 +118,22 @@ h1, h2, h3 {
   padding: 10px;
   color: #003366;
   width: fit-content;
- }
+}
 
-button {
+/* Generic Button (for non-form buttons) */
+button.generic-btn {
   background-color: #0055A5;
   color: white;
   transition-duration: 0.4s;
   border-radius: 3px;
   padding: 10px 20px;
-  }
-
-button:hover {
-  background-color: #003366;
-  color: white;
 }
 
+button.generic-btn:hover {
+  background-color: #003366;
+}
+
+/* Notices & Errors */
 .notice {
   color: orange;
   font-weight: bold;
@@ -136,24 +149,28 @@ button:hover {
   font-style: italic;
 }
 
+/* Content Layout */
 .Content {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.Upgrades, .Reviews {
- flex: 1;
+.Upgrades,
+.Reviews {
+  flex: 1;
   padding: 20px;
   text-align: left;
 }
 
+/* Grid for Upgrades */
 .Grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(200px, auto));
-  column-gap: 0px;
+  column-gap: 0;
 }
 
+/* Card Component */
 .Card {
   width: 100px;
   text-align: center;
@@ -177,11 +194,7 @@ button:hover {
   text-align: center;
 }
 
-.Reviews {
-  padding: 20px;
-  text-align: left;
-}
-
+/* Reviews List */
 .Reviews ul {
   list-style: disc;
   padding-left: 20px;
@@ -214,16 +227,14 @@ button:hover {
 }
 
 #inv-display img {
-  width: 250px;              
-  height: 150px;            
-  object-fit: contain;        
+  width: 250px;
+  height: 150px;
+  object-fit: contain;
   object-position: center;
   border-radius: 6px;
-  margin-bottom: 10px;
   display: block;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 10px;
 }
-
 
 /* Vehicle Detail Views */
 .vehicle-detail-container {
@@ -235,55 +246,61 @@ button:hover {
 
 .vehicle-image {
   flex: 1;
-  max-width: 40%;  /* adjust as needed */
+  max-width: 40%;
 }
 
 .vehicle-info {
   flex: 1;
-  max-width: 60%;  /* adjust as needed */
+  max-width: 60%;
 }
 
+/* Consistent Inventory Image */
+.inventory-img {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+/* Footer */
 .Footer {
   display: flex;
   padding: 10px;
-  margin: 10px 0 0 0;
+  margin: 10px 0 0;
   color: #ffffff;
   text-align: center;
   background-color: #003366;
-  float: none;  
   border-radius: 5px;
   flex-wrap: wrap;
 }
 
-.footer  p {
-  color: white;
+.Footer p {
   margin: 0;
   flex: 1;
 }
 
-.footer .left a:hover {
+.Footer .left a {
   color: white;
+  text-decoration: none;
+}
+
+.Footer .left a:hover {
   text-decoration: none;
   font-weight: bold;
-  text-align: left;
 }
 
-.footer .left a:active {
+.Footer .left a:active {
   color: white;
 }
 
-.footer .left a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer .copyright {
-  color: white;
+.Footer .copyright {
   text-align: center;
 }
 
-/* Login Page Styles */
-.login-container {
+/* Login & Registration Forms (shared styling) */
+.login-container,
+.register-container {
   width: 100%;
   max-width: 400px;
   margin: 50px auto;
@@ -293,15 +310,6 @@ button:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading styling */
-h2 {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* Styling for flash messages */
 .flash-message {
   background-color: #f8d7da;
   color: #721c24;
@@ -315,11 +323,10 @@ h2 {
   margin: 0;
 }
 
-/* Form element styling */
 form {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adds space between form elements */
+  gap: 20px;
 }
 
 label {
@@ -338,12 +345,13 @@ input {
 }
 
 input:focus {
-  border-color: #4CAF50; /* Green focus color */
+  border-color: #4CAF50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
 }
 
-/* Button styling */
-button {
+/* Form Buttons */
+.login-container button,
+.register-container button {
   padding: 12px;
   background-color: #4CAF50;
   color: white;
@@ -354,11 +362,12 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.login-container button:hover,
+.register-container button:hover {
   background-color: #45a049;
 }
 
-/* Styling for the sign-up link */
+/* Sign-up Link */
 .signup-link {
   text-align: center;
   margin-top: 20px;
@@ -374,111 +383,33 @@ button:hover {
   text-decoration: underline;
 }
 
-/* Styling for Registration Page */
-.register-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: lightskyblue;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Heading styling */
-h2 {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* Styling for flash messages */
-.flash-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.flash-message p {
-  margin: 0;
-}
-
-/* Form element styling */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Adds space between form elements */
-}
-
-label {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-input {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-}
-
-input:focus {
-  border-color: #4CAF50; /* Green focus color */
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
-
-/* Button styling */
-button {
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-/* Input field styling */
-input:required:invalid, input:focus:invalid {
+/* Input Field Validation */
+input:required:invalid,
+input:focus:invalid {
   background-image: url(/images/invalid.png);
   background-position: right top;
   background-repeat: no-repeat;
- }
-  input:required:valid {
+}
+
+input:required:valid {
   background-image: url(/images/valid.png);
   background-position: right top;
   background-repeat: no-repeat;
-  }
-
+}
 
 /* Responsive Design */
 @media (max-width: 769px) {
   body {
     background-image: none;
   }
-
   .Navigation ul {
     padding: 10px 0;
   }
-
   .Navigation li {
     margin: 0 8px;
     font-size: 12px;
   }
   .Container {
-    display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
@@ -489,63 +420,63 @@ input:required:invalid, input:focus:invalid {
     font-size: 10px;
     padding: 8px;
     text-align: left;
-
   }
   .Content {
     flex-direction: column;
-    align-items: center;   
+    align-items: center;
   }
-
-  .Upgrades, .Reviews {
+  .Upgrades,
+  .Reviews {
     width: 100%;
     text-align: center;
   }
-
   .Reviews {
-    width: 100%;
     text-align: left;
     font-size: 0.7em;
   }
   .Upgrades .Grid {
-    width: 100%;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
   .Upgrades h2 {
-    text-align: center;
     margin: 0 auto;
     width: 100%;
   }
 }
 
 @media (max-width: 600px) {
-  .login-container {
-    width: 90%;
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  input, button {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 600px) {
+  .login-container,
   .register-container {
     width: 90%;
     padding: 20px;
   }
-
   h2 {
     font-size: 20px;
   }
-
-  input, button {
+  input,
+  button {
     font-size: 14px;
   }
 }
 
+@media (max-width: 768px) {
+  .vehicle-detail-container {
+    grid-template-columns: 1fr; /* Stack the image and info vertically */
+    gap: 10px; /* Optional: reduce the gap for a tighter layout on small screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .vehicle-info {
+    max-width: 100%;  /* Allow the info section to use the full width */
+    padding: 10px;    /* Add some padding for breathing room */
+  }
+}
+
+@media (max-width: 600px) {
+  .inventory-img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+}
