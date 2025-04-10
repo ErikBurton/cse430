@@ -86,5 +86,71 @@ async function registerAccount(req, res) {
     });
   }
 }
+
+async function showUpdateForm(req, res) {
+  const account_id = req.params.account_id;
+  const accountData = await accountModel.getAccountById(account_id); // create this in your model
+
+  res.render("account/update", {
+    title: "Update Account",
+    accountData
+  });
+}
   
-  module.exports = { buildLogin, buildRegister, registerAccount }
+async function updateAccount(req, res) {
+  const { firstname, lastname, email, account_id } = req.body;
+  const result = await accountModel.updateAccountInfo(firstname, lastname, email, account_id);
+
+  if (result) {
+    req.flash("notice", "Account information updated successfully.");
+  } else {
+    req.flash("notice", "Account update failed. Please try again.");
+  }
+
+  const accountData = await accountModel.getAccountById(account_id);
+  res.render("account/management", {
+    title: "Account Management",
+    accountData
+  });
+}
+
+async function updatePassword(req, res) {
+  const { password, account_id } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await accountModel.updatePassword(hashedPassword, account_id);
+
+    if (result) {
+      req.flash("notice", "Password updated successfully.");
+    } else {
+      req.flash("notice", "Password update failed. Try again.");
+    }
+
+    const accountData = await accountModel.getAccountById(account_id);
+    res.render("account/management", {
+      title: "Account Management",
+      accountData
+    });
+  } catch (error) {
+    console.error("Password update error:", error.message);
+    req.flash("notice", "An error occurred. Try again.");
+    res.redirect("/account");
+  }
+}
+
+async function logout(req, res) {
+  res.clearCookie("jwt"); 
+  req.flash("notice", "You have been logged out.");
+  res.redirect("/");
+}
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  registerAccount,
+  showUpdateForm,
+  updateAccount,      
+  updatePassword,       
+  logout
+};

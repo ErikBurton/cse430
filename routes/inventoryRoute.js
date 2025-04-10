@@ -1,7 +1,8 @@
 const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
-const { body } = require("express-validator");
+const { body } = require("express-validator")
+const { checkAccountType } = require("../middleware/authorize")
 
 // Route to deliver the management view
 router.get("/", invController.buildManagementView);
@@ -36,6 +37,10 @@ router.post("/add-inventory",
   body("classification_id").notEmpty().withMessage("A classification must be selected."),
   invController.addNewInventory
 );
+
+console.log("invController:", invController)
+
+router.get("/management", checkAccountType, invController.buildManagementView)
 
 
 module.exports = router;

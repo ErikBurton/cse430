@@ -7,7 +7,7 @@ const accountModel = require("../models/account-model")
 /*  **********************************
   *  Registration Data Validation Rules
   * ********************************* */
-validate.registationRules = () => {
+validate.registrationRules = () => {
     return [
       // firstname is required and must be string
       body("account_firstname")
@@ -77,4 +77,75 @@ validate.checkRegData = async (req, res, next) => {
     next()
   }
   
-  module.exports = validate 
+
+  const updateAccountRules = () => {
+    return [
+      body("firstname")
+        .trim()
+        .notEmpty()
+        .withMessage("First name is required."),
+      body("lastname")
+        .trim()
+        .notEmpty()
+        .withMessage("Last name is required."),
+      body("email")
+        .trim()
+        .isEmail()
+        .withMessage("A valid email is required."),
+    ];
+  };
+  
+  const passwordRules = () => {
+    return [
+      body("password")
+        .trim()
+        .isStrongPassword({
+          minLength: 12,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password must be at least 12 characters and include an uppercase letter, number, and special character."),
+    ];
+  };
+  
+  const checkUpdateData = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("account/update", {
+        title: "Update Account",
+        errors: errors.array(),
+        accountData: req.body,
+      });
+    }
+    next();
+  };
+  
+  const checkPasswordData = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("account/update", {
+        title: "Update Account",
+        errors: errors.array(),
+        accountData: req.body,
+      });
+    }
+    next();
+  };
+  
+  console.log("Exporting:", {
+    updateAccountRules,
+    passwordRules,
+    checkUpdateData,
+    checkPasswordData
+  });
+
+  module.exports = {
+    ...validate,
+    updateAccountRules,
+    passwordRules,
+    checkUpdateData,
+    checkPasswordData,
+  };
+  
+  

@@ -32,11 +32,12 @@ invCont.buildInventoryDetail = async function (req, res, next) {
    })
 }
 
-invCont.buildManagementView = async function (req, res, next) {
-  const nav = await utilities.getNav()
+invCont.buildManagementView = async function (req, res) {
+  let nav = await utilities.getNav();
+
   res.render("inventory/management", {
     title: "Inventory Management",
-    nav, 
+    nav,
     flash: req.flash("message"),
     errors: null
   });
@@ -196,4 +197,4 @@ invCont.addNewInventory = async function (req, res, next) {
   }
 };
  
-module.exports = invCont
+module.exports = invCont;
