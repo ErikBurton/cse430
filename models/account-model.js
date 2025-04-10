@@ -72,4 +72,17 @@ async function updatePassword(hashedPassword, account_id) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail , getAccountById, updateAccountInfo, updatePassword};
+async function getAccountByEmail(email) {
+  try {
+    const result = await pool.query(
+      `SELECT * FROM account WHERE account_email = $1`,
+      [email]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error("getAccountByEmail error:", error.message);
+    throw new Error("Database query failed");
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail , getAccountById, updateAccountInfo, updatePassword, getAccountByEmail};

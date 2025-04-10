@@ -1,6 +1,7 @@
 const utilities = require('../utilities')
-const accountModel = require('../models/account-model');
+const accountModel = require('../models/account-model')
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 /* ****************************************
 *  Deliver login view
@@ -145,6 +146,72 @@ async function logout(req, res) {
   res.redirect("/");
 }
 
+async function loginAccount(req, res) {
+  const { account_email, account_password } = req.body;
+  const nav = await utilities.getNav();
+  console.log("JWT_SECRET:", process.env.JWT_SECRET)
+
+  try {
+    const accountData = await accountModel.getAccountByEmail(account_email);
+    if (!accountData) {
+      req.flash("notice", "Email not found.");
+      return res.status(401).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      });
+    }
+
+    const match = await bcrypt.compare(account_password, accountData.account_password);
+    if (!match) {
+      req.flash("notice", "Incorrect password.");
+      return res.status(401).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      });
+    }
+
+    delete accountData.password; // never send password to the client
+
+    const token = jwt.sign(accountData, process.env.JWT_SECRET, {
+      expiresIn: "1h"
+    });
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      maxAge: 3600000, // 1 hour
+    });
+
+    req.flash("notice", "Login successful.");
+    return res.redirect("/account");
+  } catch (error) {
+    console.error("Login error:", error.message);
+    req.flash("notice", "An error occurred. Please try again.");
+    return res.status(500).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    });
+  }
+}
+
+async function buildAccountManagement(req, res) {
+  const nav = await utilities.getNav();
+  const accountData = res.locals.accountData; 
+
+  res.render("account/management", {
+    title: "Account Management",
+    nav,
+    accountData,
+    flash: req.flash("notice"),
+  });
+}
+
+
 module.exports = {
   buildLogin,
   buildRegister,
@@ -152,5 +219,7 @@ module.exports = {
   showUpdateForm,
   updateAccount,      
   updatePassword,       
-  logout
+  logout,
+  loginAccount,
+  buildAccountManagement
 };

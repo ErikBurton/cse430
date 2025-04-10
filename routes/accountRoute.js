@@ -9,6 +9,8 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement))
+
 // Process the registration data
 router.post(
   "/register",
@@ -20,9 +22,7 @@ router.post(
 // Process the login attempt
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  accountController.loginAccount
 )
 
 router.get("/update/:account_id", accountController.showUpdateForm)
