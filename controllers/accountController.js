@@ -41,12 +41,12 @@ async function buildRegister(req, res, next) {
 *  Process Sign Up
 * *************************************** */
 async function registerAccount(req, res) {
-  const { account_firstname, account_lastname, account_email, account_password } = req.body
+  const { account_firstname, account_lastname, account_email, account_password, account_type } = req.body
   let nav = await utilities.getNav()
   // Hash the password before storing
   let hashedPassword
   try {
-    // regular password and cost (salt is generated automatically)
+   
     hashedPassword = await bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
@@ -59,14 +59,15 @@ async function registerAccount(req, res) {
   const regResult = await accountModel.registerAccount(
   account_firstname,
   account_lastname,
-  account_email,
-  hashedPassword
+  account_email,  
+  hashedPassword,
+  account_type
   )
 
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you\'re registered ${account_firstname}. Please log in.`
+      `Congratulations, you\'re registered as ${account_firstname}. Please log in.`
     )
     res.status(201).render("account/login", {
       title: "Login",
@@ -91,16 +92,20 @@ async function registerAccount(req, res) {
 async function showUpdateForm(req, res) {
   const account_id = req.params.account_id;
   const accountData = await accountModel.getAccountById(account_id); // create this in your model
-
+  let nav = await utilities.getNav();
   res.render("account/update", {
     title: "Update Account",
-    accountData
+    nav,
+    accountData,
+    flash: req.flash("notice"),
+    errors: null
   });
 }
   
 async function updateAccount(req, res) {
   const { firstname, lastname, email, account_id } = req.body;
   const result = await accountModel.updateAccountInfo(firstname, lastname, email, account_id);
+  let nav = await utilities.getNav();
 
   if (result) {
     req.flash("notice", "Account information updated successfully.");

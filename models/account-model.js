@@ -3,14 +3,18 @@ const pool = require("../database/")
 /* *****************************
 *   Signup new account
 * *************************** */
-async function registerAccount(account_firstname, account_lastname, account_email, account_password){
-    try {
-      const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
-      return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
-    } catch (error) {
-      return error.message
-    }
+async function registerAccount(account_firstname, account_lastname, account_email, account_password, account_type) {
+  try {
+    // Validate the account type: if it's not one of the allowed values, default to 'Client'.
+    const validAccountTypes = ['Client', 'Employee', 'Admin'];
+    const userAccountType = validAccountTypes.includes(account_type) ? account_type : 'Client';
+    
+    const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password, userAccountType]);
+  } catch (error) {
+    return error.message;
   }
+}  
 
 /* **********************
  *   Check for existing email
@@ -28,7 +32,7 @@ async function checkExistingEmail(account_email){
 async function getAccountById(account_id) {
   try {
     const result = await pool.query(
-      `SELECT account_id, firstname, lastname, email, account_type 
+      `SELECT account_id, account_firstname, account_lastname, account_email, account_type 
        FROM account 
        WHERE account_id = $1`,
       [account_id]
@@ -44,7 +48,7 @@ async function updateAccountInfo(firstname, lastname, email, account_id) {
   try {
     const sql = `
       UPDATE account
-      SET firstname = $1, lastname = $2, email = $3
+      SET account_firstname = $1, account_lastname = $2, account_email = $3
       WHERE account_id = $4
       RETURNING *;
     `;
@@ -60,12 +64,12 @@ async function updatePassword(hashedPassword, account_id) {
   try {
     const sql = `
       UPDATE account
-      SET password = $1
+      SET account_password = $1
       WHERE account_id = $2
       RETURNING *;
     `;
     const result = await pool.query(sql, [hashedPassword, account_id]);
-    return result.rowCount; // 1 if successful
+    return result.rowCount; 
   } catch (error) {
     console.error("updatePassword error:", error.message);
     throw error;
