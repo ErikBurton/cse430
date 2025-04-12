@@ -89,4 +89,11 @@ async function getAccountByEmail(email) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail , getAccountById, updateAccountInfo, updatePassword, getAccountByEmail};
+module.exports = { 
+  registerAccount, 
+  checkExistingEmail , 
+  getAccountById, 
+  updateAccountInfo, 
+  updatePassword, 
+  getAccountByEmail
+};
