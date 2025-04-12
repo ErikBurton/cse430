@@ -1,0 +1,64 @@
+<% if (errors && errors.length > 0) { %>
+  <ul class="error-list">
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+<% } %>
+
+<%- messages() %>
+
+<div class="review-container">
+  <h1><%= title %></h1>
+  
+  <!-- Flash messages -->
+  <% if (typeof flash !== 'undefined' && flash.length > 0) { %>
+    <div class="flash-message">
+      <% flash.forEach(function(message){ %>
+        <p><%= message %></p>
+      <% }); %>
+    </div>
+  <% } %>
+  
+  <!-- Validation errors (if any) -->
+  <% if (errors && errors.array && errors.array().length > 0) { %>
+    <ul class="error-list">
+      <% errors.array().forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+  
+  <!-- Review Submission Form -->
+  <form action="/review" method="post">
+    <fieldset>
+      <legend>Leave a Review</legend>
+      
+      <div class="form-group">
+        <label for="rating">Rating (1 to 5):</label>
+        <select name="rating" id="rating" required>
+          <option value="">Select a rating</option>
+          <option value="1">1 - Poor</option>
+          <option value="2">2 - Fair</option>
+          <option value="3">3 - Good</option>
+          <option value="4">4 - Very Good</option>
+          <option value="5">5 - Excellent</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Comment (optional):</label>
+        <textarea id="comment" name="comment" rows="4" placeholder="Enter your review..."></textarea>
+      </div>
+      
+      <!-- Hidden field to pass the account id if available -->
+      <% if (accountData && accountData.account_id) { %>
+        <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+      <% } %>
+      
+      <div class="form-group">
+        <button type="submit">Submit Review</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

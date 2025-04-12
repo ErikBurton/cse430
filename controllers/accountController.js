@@ -216,6 +216,7 @@ async function buildAccountManagement(req, res) {
     nav,
     accountData,
     flash: req.flash("notice"),
+    errors: null
   });
 }
 

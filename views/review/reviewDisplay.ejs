@@ -1,0 +1,60 @@
+<div class="review-container">
+  <h1><%= title %></h1>
+  
+  <!-- Flash messages -->
+  <% if (typeof flash !== 'undefined' && flash.length > 0) { %>
+    <div class="flash-message">
+      <% flash.forEach(function(message){ %>
+        <p><%= message %></p>
+      <% }); %>
+    </div>
+  <% } %>
+  
+  <div class="review-summary">
+    <% if (ratingData && ratingData.average) { %>
+      <p>Average Rating: <strong><%= ratingData.average %> / 5</strong></p>
+      <p>Total Reviews: <%= ratingData.total_reviews %></p>
+      <div class="star-rating">
+        <% let fullStars = Math.round(ratingData.average); %>
+        <% for (let i = 0; i < fullStars; i++) { %>
+          <span>&#9733;</span>
+        <% } %>
+        <% for (let i = fullStars; i < 5; i++) { %>
+          <span>&#9734;</span>
+        <% } %>
+      </div>
+    <% } else { %>
+      <p>No reviews yet.</p>
+    <% } %>
+  </div>
+  
+  <hr>
+  
+  <div class="review-list">
+    <% if (reviews && reviews.length > 0) { %>
+      <% reviews.forEach(function(review) { %>
+        <div class="review-item">
+          <p>
+            <strong>Rating:</strong>
+            <% for (let i = 0; i < review.rating; i++) { %>
+              <span>&#9733;</span>
+            <% } %>
+            <% for (let i = review.rating; i < 5; i++) { %>
+              <span>&#9734;</span>
+            <% } %>
+          </p>
+          <% if (review.comment) { %>
+            <p><strong>Comment:</strong> <%= review.comment %></p>
+          <% } %>
+          <p><small>Reviewed on: <%= new Date(review.created_at).toLocaleDateString() %></small></p>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p>No reviews available.</p>
+    <% } %>
+  </div>
+  
+  <div class="review-link">
+    <a href="/review">Leave a Review</a>
+  </div>
+</div>

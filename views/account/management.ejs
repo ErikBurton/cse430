@@ -1,3 +1,20 @@
+<!-- Display flash message if available -->
+<% if (typeof flash !== 'undefined' && flash.length > 0) { %>
+  <div class="flash-message">
+    <% flash.forEach(function(message){ %>
+      <p><%= message %></p>
+    <% }); %>
+  </div>
+<% } %>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
 <div class="management-container">
   <% 
     // Set greeting prefix based on account type:
@@ -20,4 +37,6 @@
     <h3>Inventory Management</h3>
     <p><a href="/inv/management">Go to Inventory Management</a></p>
   <% } %>
+
+  <p><a href="/review">Leave a Review</a></p>
 </div>
