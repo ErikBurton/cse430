@@ -116,6 +116,7 @@ async function updateAccount(req, res) {
   const accountData = await accountModel.getAccountById(account_id);
   res.render("account/management", {
     title: "Account Management",
+    nav,
     accountData
   });
 }
@@ -133,10 +134,12 @@ async function updatePassword(req, res) {
       req.flash("notice", "Password update failed. Try again.");
     }
 
+    let nav = await utilities.getNav();
     const accountData = await accountModel.getAccountById(account_id);
     res.render("account/management", {
       title: "Account Management",
-      accountData
+      accountData,
+      nav
     });
   } catch (error) {
     console.error("Password update error:", error.message);

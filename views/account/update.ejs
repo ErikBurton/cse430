@@ -1,55 +1,96 @@
 <% if (errors && errors.length > 0) { %>
-    <ul>
-      <% errors.forEach(error => { %>
-        <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+  <ul class="error-list">
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+<% } %>
+
+<!-- Display Flash Messages -->
+<%- messages() %>
+
+<div class="update-container">
+  <h1><%= title %></h1>
   
-  <%- messages() %>
-  
-  <div class="update-container">
-    <h1><%= title %></h1>
-    
-    <form action="/account/update" method="post">
-      <fieldset>
-        <legend>Update Account Information</legend>
-    
-        <label for="firstname">First Name</label>
-        <input type="text" id="firstname" name="firstname" required 
-          value="<%= accountData.firstname %>">
-    
-        <label for="lastname">Last Name</label>
-        <input type="text" id="lastname" name="lastname" required 
-          value="<%= accountData.lastname %>">
-    
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required 
-          value="<%= accountData.email %>">
-    
-        <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-    
-        <input type="submit" value="Update Account Info">
-      </fieldset>
-    </form>
+  <!-- Account Update Form -->
+  <form action="/account/update" method="post">
+    <fieldset>
+      <legend>Update Account Information</legend>
       
-    <form action="/account/update-password" method="post">
-      <fieldset>
-        <legend>Change Password</legend>
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input 
+          type="text" 
+          id="firstname" 
+          name="firstname" 
+          required 
+          placeholder="Enter your first name"
+          value="<%= (accountData && accountData.firstname) || (accountData && accountData.account_firstname) || '' %>">
+      </div>
+      
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input 
+          type="text" 
+          id="lastname" 
+          name="lastname" 
+          required 
+          placeholder="Enter your last name"
+          value="<%= (accountData && accountData.lastname) || (accountData && accountData.account_lastname) || '' %>">
+      </div>
+      
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required 
+          placeholder="Enter your email"
+          value="<%= (accountData && accountData.email) || (accountData && accountData.account_email) || '' %>">
+      </div>
+      
+      <!-- Hidden field for account id -->
+      <input type="hidden" name="account_id" value="<%= accountData ? accountData.account_id : '' %>">
+      
+      <!-- Submit button -->
+      <div class="form-group">
+        <input type="submit" value="Update Account Info">
+      </div>
+    </fieldset>
+  </form>
     
+  <!-- Change Password Form -->
+  <form action="/account/update-password" method="post">
+    <fieldset>
+      <legend>Change Password</legend>
+      
+      <div class="form-group">
         <label for="new-password">New Password</label>
-        <input type="password" id="new-password" name="password" required
-          pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{12,})"
-          title="Must be at least 12 characters, include 1 uppercase, 1 number, and 1 special character.">
-    
-        <small>
-          Password must be at least 12 characters and include one uppercase letter, one number, and one special character.
-        </small>
-    
-        <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-    
+        <input 
+          type="password" 
+          id="new-password" 
+          name="password" 
+          required
+          pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{12,}$"
+          title="Must be at least 12 characters, include 1 uppercase letter, 1 number, and 1 special character."
+          placeholder="Enter a new password">
+      </div>
+      
+      <small>
+        Password must be at least 12 characters and include one uppercase letter, one number, and one special character.
+      </small>
+      
+      <!-- Hidden field for account id -->
+      <input type="hidden" name="account_id" value="<%= accountData ? accountData.account_id : '' %>">
+      
+      <!-- Submit button -->
+      <div class="form-group">
         <input type="submit" value="Change Password">
-      </fieldset>
-    </form>
-  </div>
-  
+      </div>
+    </fieldset>
+  </form>
+</div>
