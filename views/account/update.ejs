@@ -8,48 +8,48 @@
   
   <%- messages() %>
   
-  <h1><%= title %></h1>
-  
-  <!-- ✅ Account Info Update Form -->
-  <form action="/account/update" method="post">
-    <fieldset>
-      <legend>Update Account Information</legend>
-  
-      <label for="firstname">First Name</label>
-      <input type="text" id="firstname" name="firstname" required 
-        value="<%= accountData.firstname %>">
-  
-      <label for="lastname">Last Name</label>
-      <input type="text" id="lastname" name="lastname" required 
-        value="<%= accountData.lastname %>">
-  
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required 
-        value="<%= accountData.email %>">
-  
-      <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-  
-      <input type="submit" value="Update Account Info">
-    </fieldset>
-  </form>
-  
-  <!-- ✅ Password Change Form -->
-  <form action="/account/update-password" method="post">
-    <fieldset>
-      <legend>Change Password</legend>
-  
-      <label for="new-password">New Password</label>
-      <input type="password" id="new-password" name="password" required
-        pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{12,})"
-        title="Must be at least 12 characters, include 1 uppercase, 1 number, and 1 special character.">
-  
-      <small>
-        Password must be at least 12 characters and include one uppercase letter, one number, and one special character.
-      </small>
-  
-      <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-  
-      <input type="submit" value="Change Password">
-    </fieldset>
-  </form>
+  <div class="update-container">
+    <h1><%= title %></h1>
+    
+    <form action="/account/update" method="post">
+      <fieldset>
+        <legend>Update Account Information</legend>
+    
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" required 
+          value="<%= accountData.firstname %>">
+    
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastname" required 
+          value="<%= accountData.lastname %>">
+    
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required 
+          value="<%= accountData.email %>">
+    
+        <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+    
+        <input type="submit" value="Update Account Info">
+      </fieldset>
+    </form>
+      
+    <form action="/account/update-password" method="post">
+      <fieldset>
+        <legend>Change Password</legend>
+    
+        <label for="new-password">New Password</label>
+        <input type="password" id="new-password" name="password" required
+          pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{12,})"
+          title="Must be at least 12 characters, include 1 uppercase, 1 number, and 1 special character.">
+    
+        <small>
+          Password must be at least 12 characters and include one uppercase letter, one number, and one special character.
+        </small>
+    
+        <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+    
+        <input type="submit" value="Change Password">
+      </fieldset>
+    </form>
+  </div>
   
