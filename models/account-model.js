@@ -53,7 +53,7 @@ async function updateAccountInfo(firstname, lastname, email, account_id) {
       RETURNING *;
     `;
     const result = await pool.query(sql, [firstname, lastname, email, account_id]);
-    return result.rowCount; // 1 if successful
+    return result.rowCount; 
   } catch (error) {
     console.error("updateAccountInfo error:", error.message);
     throw error;

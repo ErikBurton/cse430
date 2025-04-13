@@ -89,8 +89,7 @@ module.exports = {
   getInventoryByClassificationId, 
   getVehicleById,
   addClassification,
-  addInventory  // Export our new function
+  addInventory  
 };
-
 
 module.exports = { getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addInventory };

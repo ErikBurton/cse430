@@ -461,13 +461,12 @@ input:required:valid {
   text-align: center;
 }
 
-/* Account Update & Password Update Forms Styling */
 .update-container {
   width: 100%;
-  max-width: 400px;  /* Match the login/register max width */
-  margin: 50px auto; /* Centers the form and adds top/bottom space */
+  max-width: 400px;  
+  margin: 50px auto; 
   padding: 30px;
-  background-color: lightskyblue; /* Similar to your login/register forms */
+  background-color: lightskyblue; 
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -485,7 +484,6 @@ input:required:valid {
   gap: 20px;
 }
 
-/* Fieldset and Legend for clarity */
 .update-container fieldset {
   border: none;
   margin: 0;
@@ -499,7 +497,6 @@ input:required:valid {
   font-weight: bold;
 }
 
-/* Form labels */
 .update-container label {
   font-size: 16px;
   color: #333;

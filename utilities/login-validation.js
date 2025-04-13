@@ -16,7 +16,7 @@ validate.registationRules = () => {
         .escape()
         .notEmpty()
         .isEmail()
-        .normalizeEmail() // refer to validator.js docs
+        .normalizeEmail() 
         .withMessage("A valid email is required.")
         .custom(async (account_email) => {
           const emailExists = await accountModel.checkExistingEmail(account_email)

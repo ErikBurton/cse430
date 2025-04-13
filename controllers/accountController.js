@@ -76,9 +76,7 @@ async function registerAccount(req, res) {
       errors: null
     });
     
-  } else {
-
-    
+  } else {    
     
     req.flash("notice", "Sorry, the registration failed.");
     res.status(501).render("account/register", {
@@ -91,7 +89,7 @@ async function registerAccount(req, res) {
 
 async function showUpdateForm(req, res) {
   const account_id = req.params.account_id;
-  const accountData = await accountModel.getAccountById(account_id); // create this in your model
+  const accountData = await accountModel.getAccountById(account_id); 
   let nav = await utilities.getNav();
   res.render("account/update", {
     title: "Update Account",
@@ -219,7 +217,6 @@ async function buildAccountManagement(req, res) {
     errors: null
   });
 }
-
 
 module.exports = {
   buildLogin,

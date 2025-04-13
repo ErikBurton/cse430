@@ -29,7 +29,7 @@ router.post("/add-inventory",
   // Server-side validations for inventory fields:
   body("inv_make").notEmpty().withMessage("Vehicle make is required."),
   body("inv_model").notEmpty().withMessage("Vehicle model is required."),
-  body("inv_year").isInt({ min: 1886 }).withMessage("Enter a valid model year."), // Model year should be a reasonable integer (1886 is often used as the start of modern automobiles)
+  body("inv_year").isInt({ min: 1886 }).withMessage("Enter a valid model year."), 
   body("inv_description").notEmpty().withMessage("Description is required."),
   body("inv_price").isFloat({ min: 0 }).withMessage("Price must be a positive number."),
   body("inv_miles").isInt({ min: 0 }).withMessage("Mileage must be a positive number."),
@@ -37,8 +37,6 @@ router.post("/add-inventory",
   body("classification_id").notEmpty().withMessage("A classification must be selected."),
   invController.addNewInventory
 );
-
-console.log("invController:", invController)
 
 router.get("/management", checkAccountType, invController.buildManagementView)
 
